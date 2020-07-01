@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+<title>增加图书界面</title>
+</head>
+<style>
+	body{
+		display: flex;
+          flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		background: url(https://i.alipayobjects.com/e/201311/1V4o0zhQPN_src.jpg) no-repeat;
+	}
+	.register{
+		border: 1px solid #ee3fe3;
+	    padding: 15px;
+		width: 300px;
+		height: 360px;
+	
+		text-align: right;
+	}
+	.i-text{
+		line-height: 15px;
+		padding-bottom: 5px;
+		margin-bottom: 5px;
+		width: 200px;
+	}
+	 span.i-text{
+		text-items: center;
+	}
+</style>
+<body>
+	<div class="register">
+		<h2>用户注册&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+		<div class="content">
+			<form name="frm1" action="BookAddServlet" method="post" enctype="multipart/form-data" onSubmit="return check(this)">
+				<div class="box">
+					<label class="i-label">*用户名</label>
+					<input type="text" name="bookNo" class="i-text">
+				</div >
+				<div class="box">
+					<label class="i-label">*书名</label>
+					<input type="text" name="bookName" class="i-text">
+				</div>
+				<div class="box">
+					<label class="i-label">作者</label>
+					<input type="text" name="author" class="i-text">
+				</div>
+			
+				<div class="box">
+					<label class="i-label">出版日期</label>
+					<input type="date" name="pressDate" class="i-text">
+				</div>
+				<div class="box">
+					<label class="i-label">*库存</label>
+					<input type="text" name="bookNum" class="i-text">
+				</div>
+				
+				<div class="box">
+					<label class="i-label">封面</label>
+					<input type="file" name="bookCover" class="i-text">
+				</div>
+				<div class="btns">
+					<span class="i-text">
+						<input type="submit" value="提     交">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="reset" value="清     除">
+					</span>
+				</div>
+			
+			</form>
+		</div>
+	</div>
+</body>
+</html>

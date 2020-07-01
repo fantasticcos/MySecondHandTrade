@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.UserMapper">
+	<select id="indentify" parameterType="com.two.body.User" resultType="com.two.body.User">
+		select * from user where ID = #{ID} and password =#{password}
+	</select>
+	<!-- 删除商品 -->
+	<delete id="deletegood" parameterType="String">
+		delete from goods where No=#{No}
+	</delete>
+	<!-- 删除发布 -->
+	<delete id="deletedis" parameterType="String">
+	delete from distribute where No=#{No}
+	</delete>
+	<!-- 删除相关评论 -->
+	<delete id="deletecom" parameterType="String">
+		delete from comments where No=#{No}
+	</delete>
+	<!-- 购买人数 -->
+	<select id="getsinglebnum" parameterType="String" resultType="Integer">
+	SELECT COUNT(No) FROM trades
+		WHERE No =#{No}
+	</select>
+	<!-- 评论人数 -->
+	<select id="getcomnum" parameterType="String" resultType="Integer">
+	SELECT COUNT(No) FROM comments
+		WHERE No =#{No}
+	</select>
+	<!-- 查询发布数量 -->
+	<select id="getdisnum" parameterType="String" resultType="Integer">
+	SELECT COUNT(ID) FROM distribute
+		WHERE ID =#{ID}
+	</select>
+	<!-- 商品名称模糊查询 -->
+	<select id="findgoods"  parameterType="com.two.body.Page" resultType="com.two.body.Goods">
+		select * from goods where name like CONCAT('%',#{search},'%') 
+	</select>
+	<!-- 获得发布列表 -->
+	<select id="getdis" parameterType="String" resultType="com.two.body.distribute">
+		select * from distribute where ID =#{ID}
+	</select>
+	<!-- 添加商品 -->
+	<insert id="addgoods" parameterType="com.two.body.Goods">
+		insert into goods (`No`,`type`,`name`,`price`,`desc`,`comments`,`pic`) values(#{No},#{type},#{name},#{price},#{desc},#{comments},#{pic})
+	</insert>
+	<!-- 发布商品 -->
+	<insert id="distribute" parameterType="com.two.body.distribute">
+		insert into distribute (No,ID,acc,time) values(#{No},#{ID},#{acc},#{time})
+	</insert>
+	<!-- 注册用户 -->
+	<insert id="adduser" parameterType="com.two.body.User">
+		insert into user (ID ,acc,password,pic) values(#{ID},#{acc},#{password},#{pic})
+	</insert>
+	<!-- 插入订单 -->
+	<insert id="addtrades" parameterType="com.two.body.trades">
+		insert into trades (tradeNo,ID,acc,time,name,No) values(#{tradeNo},#{ID},#{acc},#{time},#{name},#{No})
+	</insert>
+	<!-- 插入评论 -->
+	<insert id="addcomment" parameterType="com.two.body.Comments" >
+		insert into comments (ID,No,time,content) values(#{ID},#{No},#{time},#{content})
+	</insert>
+	<!-- 获得某个用户购买的所有 -->
+	<select id="buyedlist"  parameterType="String" resultType="com.two.body.trades">
+		select * from trades
+		where ID=#{ID}
+	</select>
+	<!-- 活得购买过得数量 -->
+	<select id="getbuynum"  parameterType="String" resultType="Integer">
+		SELECT COUNT(ID) FROM trades
+		WHERE ID =#{ID}
+	</select>
+	<!-- 获得单个商品信息 -->
+	<select id="getmoreinfo" parameterType="String" resultType="com.two.body.Goods" >
+		SELECT * FROM goods 
+		where No=#{No}
+	</select>
+	<!-- 活得评论 -->
+	<select id="getcomments" parameterType="String"  resultType="com.two.body.Comments">
+		SELECT * FROM comments
+		where No=#{No}
+	</select>
+	<!-- 获得有多少页 -->
+	<select id="getPageNum" resultType="Integer">
+		SELECT COUNT(goods.`No`)
+			FROM goods
+	</select>
+	<!-- 分类总览 -->
+	<select id="freshtypePage" parameterType="com.two.body.Page" resultType="com.two.body.Goods">
+		SELECT * FROM goods 
+			WHERE TYPE= #{type} 
+			ORDER BY NO DESC
+			LIMIT #{from},#{to}
+	</select>
+	<!-- 根据uid查询一个用户信息 -->
+	<select id="selectUserById" parameterType="Integer" 
+		resultType="com.two.body.User">
+		select * from user where uid = #{uid}
+	</select>
+	<!-- 查询所有用户信息 -->
+	<select id="selectAllUser"  resultType="com.two.body.User">
+		select * from user
+	</select>
+	<!-- 添加一个用户 ，#{uname}为com.mybatis.po.MyUser的属性值-->
+	<insert id="addUser" parameterType="com.two.body.User">
+		insert into user (uname,usex) values(#{uname},#{usex})
+	</insert>
+	<!-- 修改一个用户 -->
+	<update id="updateUser" parameterType="com.two.body.User">
+		update user set uname = #{uname},usex = #{usex} where uid = #{uid}
+	</update>
+	<!-- 删除一个用户 -->
+	<delete id="deleteUser" parameterType="Integer"> 
+		delete from user where uid = #{uid}
+	</delete>
+</mapper>
